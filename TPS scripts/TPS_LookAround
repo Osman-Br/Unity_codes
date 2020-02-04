@@ -1,0 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TPS_LookAround : MonoBehaviour
+{
+    private Vector3 offsetOfCamera;
+    public Transform pivot;
+    public Transform player;
+    [SerializeField] private float mouseSensitivity = 100f;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        offsetOfCamera = transform.localPosition;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        RotatePlayer(mouseX);
+        ControlCamera(mouseY);
+        //pivot.rotation = Quaternion.Euler(Mathf.Clamp(pivot.rotation.x, -30f, 30f), pivot.rotation.y, pivot.rotation.z);
+    }
+    void RotatePlayer(float mouseX)
+    {
+        player.Rotate(new Vector3(0, mouseX, 0) * mouseSensitivity);
+    }
+    void ControlCamera(float mouseY)
+    {
+        pivot.Rotate(new Vector3(-mouseY , 0, 0) * mouseSensitivity);
+    }
+}
